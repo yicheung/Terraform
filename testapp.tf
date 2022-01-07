@@ -17,8 +17,8 @@ provider "aws" {
 resource "aws_vpc" "default" {
   cidr_block = "10.0.0.0/16"
   tags {
-    "Name" = "${var.username}_VPC"
-    "ENVIRONMENT" = "TEST"
+    Name = "${var.username}_VPC"
+    ENVIRONMENT = "TEST"
   }
 
 }
@@ -27,8 +27,8 @@ resource "aws_vpc" "default" {
 resource "aws_internet_gateway" "default" {
   vpc_id = "${aws_vpc.default.id}"
   tags {
-    "Name" = "${var.username}_IGW"
-    "ENVIRONMENT" = "TEST"
+    Name = "${var.username}_IGW"
+    ENVIRONMENT = "TEST"
   }
 
 }
@@ -48,8 +48,8 @@ resource "aws_subnet" "default" {
   availability_zone       = "us-east-1a"
 
   tags {
-    "Name" = "${var.username}_subnet"
-    "ENVIRONMENT" = "TEST"
+    Name = "${var.username}_subnet"
+    ENVIRONMENT = "TEST"
   }
 
 }
@@ -62,26 +62,29 @@ resource "aws_security_group" "elb" {
 
   # HTTP access from anywhere
   ingress {
+    description = "For user ${var.username}, create by terraform"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"] #tfsec:ignore:aws-vpc-no-public-ingress-sg
   }
 
  # HTTPS access from anywhere
   ingress {
+    description = "For user ${var.username}, create by terraform"
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"]  #tfsec:ignore:aws-vpc-no-public-ingress-sg
   }
 
   # outbound internet access
   egress {
+    description = "For user ${var.username}, create by terraform"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"] #tfsec:ignore:aws-vpc-no-public-egress-sg
   }
 }
 
@@ -94,6 +97,7 @@ resource "aws_security_group" "default" {
 
   # SSH access from Home
   ingress {
+    description = "For user ${var.username}, create by terraform"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -102,27 +106,36 @@ resource "aws_security_group" "default" {
 
   # HTTP access from the VPC
   ingress {
+    description = "For user ${var.username}, create by terraform"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["10.0.0.0/16"]
   }
+  # Local network
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["192.168.1.0/24"]
+  }
 
   # outbound internet access
   egress {
+    description = "For user ${var.username}, create by terraform"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-
+#tfsec:ignore:aws-elbv2-alb-not-public
 resource "aws_elb" "web" {
   name = "${var.username}-elb"
 
   tags {
-    "Name" = "${var.username}_ELB"
-    "ENVIRONMENT" = "TEST"
+    Name = "${var.username}_ELB"
+    ENVIRONMENT = "TEST"
   }
 
   subnets         = ["${aws_subnet.default.id}"]
@@ -201,9 +214,9 @@ resource "aws_instance" "web" {
 #  }
 
 tags {
-    "Name" = "${var.username}_EC2"
+    Name = "${var.username}_EC2"
     "OS"   = "CENTOS7"
-    "ENVIRONMENT" = "TEST"
+    ENVIRONMENT = "TEST"
   }
 }
 */
@@ -248,9 +261,15 @@ resource "aws_autoscaling_group" "autobot" {
   }
 
   tag {
-  key                 = "COSTCENTER"
-  value               = "TEST"
-  propagate_at_launch = false
+    key                 = "OWNER"
+    value               = "DevOPs"
+    propagate_at_launch = false
+  }
+
+  tag {
+    key                 = "COSTCENTER"
+    value               = "TEST"
+    propagate_at_launch = false
   }
 }
 
