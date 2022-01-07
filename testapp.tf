@@ -242,19 +242,21 @@ resource "aws_autoscaling_group" "autobot" {
   }
 
   tag {
-    key                 = ENVIRONMENT
+    key                 = "ENVIRONMENT"
     value               = "TEST"
     propagate_at_launch = false
   }
+
   tag {
     key                 = "OWNER"
     value               = "DevOPs"
     propagate_at_launch = false
   }
+
   tag {
-  key                 = "COSTCENTER"
-  value               = "TEST"
-  propagate_at_launch = false
+    key                 = "COSTCENTER"
+    value               = "TEST"
+    propagate_at_launch = false
   }
 }
 
