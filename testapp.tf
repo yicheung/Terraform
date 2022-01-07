@@ -62,26 +62,29 @@ resource "aws_security_group" "elb" {
 
   # HTTP access from anywhere
   ingress {
+    description = "For user ${var.username}, create by terraform"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"] #tfsec:ignore:aws-vpc-no-public-ingress-sg
   }
 
  # HTTPS access from anywhere
   ingress {
+    description = "For user ${var.username}, create by terraform"
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"]  #tfsec:ignore:aws-vpc-no-public-ingress-sg
   }
 
   # outbound internet access
   egress {
+    description = "For user ${var.username}, create by terraform"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"] #tfsec:ignore:aws-vpc-no-public-egress-sg
   }
 }
 
@@ -94,6 +97,7 @@ resource "aws_security_group" "default" {
 
   # SSH access from Home
   ingress {
+    description = "For user ${var.username}, create by terraform"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -102,6 +106,7 @@ resource "aws_security_group" "default" {
 
   # HTTP access from the VPC
   ingress {
+    description = "For user ${var.username}, create by terraform"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
@@ -110,13 +115,14 @@ resource "aws_security_group" "default" {
 
   # outbound internet access
   egress {
+    description = "For user ${var.username}, create by terraform"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-
+#tfsec:ignore:aws-elbv2-alb-not-public
 resource "aws_elb" "web" {
   name = "${var.username}-elb"
 
