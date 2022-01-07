@@ -17,8 +17,8 @@ provider "aws" {
 resource "aws_vpc" "default" {
   cidr_block = "10.0.0.0/16"
   tags {
-    "Name" = "${var.username}_VPC"
-    "ENVIRONMENT" = "TEST"
+    Name = "${var.username}_VPC"
+    ENVIRONMENT = "TEST"
   }
 
 }
@@ -27,8 +27,8 @@ resource "aws_vpc" "default" {
 resource "aws_internet_gateway" "default" {
   vpc_id = "${aws_vpc.default.id}"
   tags {
-    "Name" = "${var.username}_IGW"
-    "ENVIRONMENT" = "TEST"
+    Name = "${var.username}_IGW"
+    ENVIRONMENT = "TEST"
   }
 
 }
@@ -48,8 +48,8 @@ resource "aws_subnet" "default" {
   availability_zone       = "us-east-1a"
 
   tags {
-    "Name" = "${var.username}_subnet"
-    "ENVIRONMENT" = "TEST"
+    Name = "${var.username}_subnet"
+    ENVIRONMENT = "TEST"
   }
 
 }
@@ -121,8 +121,8 @@ resource "aws_elb" "web" {
   name = "${var.username}-elb"
 
   tags {
-    "Name" = "${var.username}_ELB"
-    "ENVIRONMENT" = "TEST"
+    Name = "${var.username}_ELB"
+    ENVIRONMENT = "TEST"
   }
 
   subnets         = ["${aws_subnet.default.id}"]
@@ -201,9 +201,9 @@ resource "aws_instance" "web" {
 #  }
 
 tags {
-    "Name" = "${var.username}_EC2"
+    Name = "${var.username}_EC2"
     "OS"   = "CENTOS7"
-    "ENVIRONMENT" = "TEST"
+    ENVIRONMENT = "TEST"
   }
 }
 */
@@ -242,11 +242,15 @@ resource "aws_autoscaling_group" "autobot" {
   }
 
   tag {
-    key                 = "ENVIRONMENT"
+    key                 = ENVIRONMENT
     value               = "TEST"
     propagate_at_launch = false
   }
-
+  tag {
+    key                 = "OWNER"
+    value               = "DevOPs"
+    propagate_at_launch = false
+  }
   tag {
   key                 = "COSTCENTER"
   value               = "TEST"
