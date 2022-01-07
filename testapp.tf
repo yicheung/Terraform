@@ -119,6 +119,13 @@ resource "aws_security_group" "default" {
     protocol    = "tcp"
     cidr_blocks = ["192.168.1.0/24"]
   }
+  # Local network
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["192.168.2.0/24"]
+  }
 
   # outbound internet access
   egress {
