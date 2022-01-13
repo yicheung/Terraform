@@ -2,8 +2,9 @@ name: tfsec-sarif
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
+      - master
 jobs:
   tfsec:
     name: tfsec sarif report
