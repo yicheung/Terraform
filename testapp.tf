@@ -288,7 +288,7 @@ resource "aws_autoscaling_group" "autobot" {
 
   tag {
     key                 = "APPLICATION"
-    value               = "tf-test-sarif"
+    value               = "test-sarif"
     propagate_at_launch = false
   }
 }
