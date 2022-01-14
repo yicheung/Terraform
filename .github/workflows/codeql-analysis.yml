@@ -73,27 +73,27 @@ jobs:
   #  Check TF files with TFsec-sarif tool
   #####
   tfsec_flag_set:
+    runs-on: ubuntu-latest
     name: Set VAR TSEC_ENABLE
     env:
           TSEC_ENABLE: true
     steps:
-          - name: Github envs
-            run: |
-              echo "The job_id is: $GITHUB_JOB"   # reference the default environment variables
-              echo "The id of this action is: $GITHUB_ACTION"   # reference the default environment variables
-              echo "The run id is: $GITHUB_RUN_ID" 
-              echo "The GitHub Actor's username is: $GITHUB_ACTOR"
-          - name: set run flag for TFSec                      
-            run: |
-                    if ${TSEC_ENABLE} == true; then
-                      echo "flag=true" >> $GITHUB_ENV
-                      echo "flag set to true"
-                    else
-                      echo "flag=false" >> $GITHUB_ENV
-                      echo "flag set to false"
-                    fi
-  tfsec_code_check:
-    name: Run TFSec scan if flag is true
-    if: env.flag
-    uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
-      
+    - name: Github envs
+      run: |
+        echo "The job_id is: $GITHUB_JOB"   # reference the default environment variables
+        echo "The id of this action is: $GITHUB_ACTION"   # reference the default environment variables
+        echo "The run id is: $GITHUB_RUN_ID" 
+        echo "The GitHub Actor's username is: $GITHUB_ACTOR"
+    - name: set run flag for TFSec                      
+      run: |
+              if ${TSEC_ENABLE} == true; then
+                echo "flag=true" >> $GITHUB_ENV
+                echo "flag set to true"
+              else
+                echo "flag=false" >> $GITHUB_ENV
+                echo "flag set to false"
+              fi
+    - name: Run TFSec scan if flag is true
+      if: env.flag
+      uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
+        
