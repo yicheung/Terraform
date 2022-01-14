@@ -77,6 +77,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TSEC_ENABLE: false
+    outputs:
+      flag: ${{ steps.setup_flag.outputs.flag }}  
     steps:
     - name: Github envs
       run: |
