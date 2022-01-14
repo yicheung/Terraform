@@ -68,3 +68,9 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
+
+  #####
+  #  Check TF files with TFsec-sarif tool
+  #####
+  tfsec_code_check:
+    uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1
