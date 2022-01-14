@@ -73,10 +73,8 @@ jobs:
   #  Check TF files with TFsec-sarif tool
   #####
   tfsec_flag_set:
-    runs-on: ubuntu-latest
     name: Set VAR TSEC_ENABLE
-    env:
-          TSEC_ENABLE: true
+    runs-on: ubuntu-latest
     steps:
     - name: Github envs
       run: |
@@ -84,21 +82,25 @@ jobs:
         echo "The id of this action is: $GITHUB_ACTION"   # reference the default environment variables
         echo "The run id is: $GITHUB_RUN_ID" 
         echo "The GitHub Actor's username is: $GITHUB_ACTOR"
-    - name: set run flag for TFSec                      
+    - name: Setup Flag
+      id: setup_flag                    
       run: |
               if ${TSEC_ENABLE} == true; then
-                echo "flag=true" >> $GITHUB_ENV
+                echo “::set-output name=flag::true”
                 echo "flag set to true"
               else
-                echo "flag=false" >> $GITHUB_ENV
+                echo “::set-output name=flag::false”
                 echo "flag set to false"
-              fi
+              fi             
   #####
   #  Run TFsec-sarif tool if flag is true
   #####            
   tfsec_run:
-    if: env.flag
     name: Run TFSec Scan
-    uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
+    runs-on: ubuntu-latest
+    steps:
+    - name: get run flag for TFSec                      
+      if: ${{ jobs.tfsec_flag_set.steps.setup_flag.outputs.flag }} == 'true'
+      uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
     
           
