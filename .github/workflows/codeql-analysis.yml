@@ -93,8 +93,7 @@ jobs:
                       echo "flag set to false"
                     fi
   tfsec_code_check:
-    name: TFSec run scan                   
-          - name: Run TFSec scan if flag is true
-            if: env.flag
-            uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
+    name: Run TFSec scan if flag is true
+    if: env.flag
+    uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
       
