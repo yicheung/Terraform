@@ -73,4 +73,4 @@ jobs:
   #  Check TF files with TFsec-sarif tool
   #####
   tfsec_code_check:
-    uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@master
+    uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0

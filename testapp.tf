@@ -270,7 +270,7 @@ resource "aws_autoscaling_group" "autobot" {
 
   tag {
     key                 = "ENVIRONMENT"
-    value               = "TEST"
+    value               = "dev"
     propagate_at_launch = false
   }
 

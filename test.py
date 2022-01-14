@@ -1,4 +1,6 @@
 import math
+import cryptography
+
 # Assign values to x and n
 x = 4
 n = 3
