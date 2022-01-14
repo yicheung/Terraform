@@ -97,8 +97,8 @@ jobs:
   #  Run TFsec-sarif tool if flag is true
   #####            
   tfsec_run:
-    uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
     if: env.flag
     name: Run TFSec Scan
+    uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
     
           
