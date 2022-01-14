@@ -93,7 +93,12 @@ jobs:
                 echo "flag=false" >> $GITHUB_ENV
                 echo "flag set to false"
               fi
-    - name: Run TFSec scan if flag is true
-      if: env.flag
-      uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
+  #####
+  #  Run TFsec-sarif tool if flag is true
+  #####            
+  tfsec_run:
+    if: env.flag
+    runs-on: ubuntu-latest
+    name: Set VAR TSEC_ENABLE   
+    uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
         
