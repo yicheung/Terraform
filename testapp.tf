@@ -62,7 +62,6 @@ resource "aws_security_group" "elb" {
 
   # HTTP access from anywhere
   ingress {
-    description = "For user ${var.username}, create by terraform"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"

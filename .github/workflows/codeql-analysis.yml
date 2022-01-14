@@ -76,7 +76,7 @@ jobs:
     name: Set VAR TSEC_ENABLE
     runs-on: ubuntu-latest
     env:
-      TSEC_ENABLE: true
+      TSEC_ENABLE: false
     steps:
     - name: Github envs
       run: |
