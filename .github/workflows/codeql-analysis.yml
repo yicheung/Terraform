@@ -100,8 +100,6 @@ jobs:
     if: env.flag
     name: Run TFSec Scan
     runs-on: ubuntu-latest
-    steps:
-      - name: Run TFSec scan
-        uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
+    uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
 
           
