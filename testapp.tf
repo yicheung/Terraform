@@ -290,6 +290,12 @@ resource "aws_autoscaling_group" "autobot" {
     key                 = "APPLICATION"
     value               = "test-sarif"
     propagate_at_launch = false
+  }  
+  
+  tag {
+    key                 = "CONFIDENTIAL"
+    value               = "public"
+    propagate_at_launch = false
   }
 }
 

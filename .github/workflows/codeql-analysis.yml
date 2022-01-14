@@ -9,7 +9,7 @@
 # the `language` matrix defined below to confirm you have the correct set of
 # supported CodeQL languages.
 #
-name: "CodeQL"
+name: CodeQL
 
 on:
   push:
@@ -73,4 +73,4 @@ jobs:
   #  Check TF files with TFsec-sarif tool
   #####
   tfsec_code_check:
-    uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1
+    uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@master
