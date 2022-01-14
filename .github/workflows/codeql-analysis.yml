@@ -75,8 +75,7 @@ jobs:
   tfsec_var_enable:
     name: Set VAR TSEC_ENABLE
     env:
-          TSEC_ENABLE: true
-    steps:      
+          TSEC_ENABLE: true     
       run: |
               if ${TSEC_ENABLE} == true; then
                 echo "flag=true" >> $GITHUB_ENV
@@ -86,7 +85,7 @@ jobs:
                 echo "flag set to false"
               fi
   tfsec_code_check:    
-      name: "Run TFSec scan if flag is true"
-      if: env.flag
-      uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
-        
+    name: "Run TFSec scan if flag is true"
+    if: env.flag
+    uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
+      
