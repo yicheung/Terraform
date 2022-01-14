@@ -75,6 +75,8 @@ jobs:
   tfsec_flag_set:
     name: Set VAR TSEC_ENABLE
     runs-on: ubuntu-latest
+    env:
+      TSEC_ENABLE: true
     steps:
     - name: Github envs
       run: |
@@ -96,7 +98,7 @@ jobs:
   #  Run TFsec-sarif tool if flag is true
   #####            
   tfsec_run:
-    if: ${{ needs.jobs.tfsec_flag_set.steps.setup_flag.outputs.flag }} == 'true'
+    if: needs.jobs.tfsec_flag_set.steps.setup_flag.outputs.flag == 'true'
     name: Run TFSec Scan
     uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
   
