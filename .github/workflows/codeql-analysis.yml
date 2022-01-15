@@ -100,9 +100,14 @@ jobs:
   #  Run TFsec-sarif tool if flag is true
   #####            
   tfsec_run:
+    name: Run TFSec Scan
     needs: tfsec_flag_set
     if: ${{ needs.jobs.tfsec_flag_set.steps.setup_flag.outputs.flag == 'true' }}
-    name: Run TFSec Scan
-    uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
+    steps:
+    - name: verify flag
+      run: |
+        echo "flag is ${{ needs.jobs.tfsec_flag_set.steps.setup_flag.outputs.flag}}"
+    - name: run tfsec 
+      uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
   
           
