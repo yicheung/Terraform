@@ -77,7 +77,7 @@ jobs:
     steps:
       - name: generate output
         id: generate-output
-        run: echo "::set-output name=bar-output::true"
+        run: echo "::set-output name=bar-output::false"
     outputs:
       tfsec-output: ${{ steps.generate-output.outputs.bar-output }}
   tfsec-run:
