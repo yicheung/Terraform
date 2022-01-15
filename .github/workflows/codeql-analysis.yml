@@ -72,8 +72,7 @@ jobs:
   #####
   #  Check TF files with TFsec-sarif tool
   #####
-  tfsec-flag:
-    name: Set VAR TSEC_ENABLE
+  job1:
     runs-on: ubuntu-latest
     env:
       TSEC_ENABLE: true
@@ -92,14 +91,14 @@ jobs:
   #  Run TFsec-sarif tool if flag is true
   #####            
   tfsec-run:
-    needs: tfsec-flag
+    needs: job1
 #    if: needs.jobs.tfsec-flag.outputs.flag == 'true'
     runs-on: ubuntu-latest
     name: Run TFSec Scan
     steps:
     - name: Show flag
       run: |
-          echo ${{needs.tfsec-flag.outputs.output1}}
+          echo ${{needs.job1.outputs.output1}}
 # uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
     
           
