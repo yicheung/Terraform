@@ -99,9 +99,9 @@ jobs:
     - name: verify flag
       run: |
         echo "flag is ${{ steps.setup_flag.outputs.flag}}"
-    - name: Run TFSec Scan
+    #- name: Run TFSec Scan
      # if: steps.setup_flag.outputs.flag == 'true'
-      uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
+     # uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
 
     
           
