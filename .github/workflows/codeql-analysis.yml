@@ -103,11 +103,12 @@ jobs:
     name: Run TFSec Scan
     runs-on: ubuntu-latest
     needs: tfsec_flag_set
-    if: ${{ needs.jobs.tfsec_flag_set.steps.setup_flag.outputs.flag == 'true' }}
+  #  if: ${{ needs.jobs.tfsec_flag_set.steps.setup_flag.outputs.flag == 'true' }}
     steps:
     - name: verify flag
       run: |
         echo "flag is ${{ needs.jobs.tfsec_flag_set.steps.setup_flag.outputs.flag}}"
-  
+    - name: run tfsec 
+      uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
     
           
