@@ -101,7 +101,7 @@ jobs:
   #####            
   tfsec_run:
     needs: tfsec_flag_set
-    if: ${{ needs.jobs.tfsec_flag_set.steps.setup_flag.outputs.flag }} == 'true'
+    if: jobs.tfsec_flag_set.steps.setup_flag.outputs.flag == 'true'
     name: Run TFSec Scan
     uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
   
