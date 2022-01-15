@@ -101,7 +101,8 @@ jobs:
   #####            
   tfsec_run:
     needs: tfsec_flag_set
-    if: needs.jobs.tfsec_flag_set.outputs.flag == 'true'
+#    if: needs.jobs.tfsec_flag_set.outputs.flag == 'true'
+    runs-on: ubuntu-latest
     name: Run TFSec Scan
     steps:
     - name: Show flag
