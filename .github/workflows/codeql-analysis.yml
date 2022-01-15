@@ -72,17 +72,17 @@ jobs:
   #####
   #  Check TF files with TFsec-sarif tool
   #####
-  foo1:
+  tfsec:
     runs-on: ubuntu-latest
     steps:
       - name: generate output
         id: generate-output
-        run: echo "::set-output name=bar-output::$(echo 1)"
+        run: echo "::set-output name=bar-output::true"
     outputs:
-      foo1-output: ${{ steps.generate-output.outputs.bar-output }}
-  foo2:
-    needs: foo1
-    if: ${{ needs.foo1.outputs.foo1-output != 0 }}  
+      tfsec-output: ${{ steps.generate-output.outputs.bar-output }}
+  tfsec-run:
+    needs: tfsec
+    if: ${{ needs.tfsec.outputs.tfsec-output == 'true' }}  
     uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
     
           
