@@ -99,7 +99,7 @@ jobs:
     steps:
     - name: Show flag
       run: |
-          echo "The flag is: ${{ needs.jobs.tfsec-flag.outputs.output1 }}"
+          echo ${{needs.jobs.tfsec-flag.outputs.output1}}
 # uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
     
           
