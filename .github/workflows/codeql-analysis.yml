@@ -83,13 +83,7 @@ jobs:
   foo2:
     needs: foo1
     runs-on: ubuntu-latest
-    if: ${{ needs.foo1.outputs.foo1-output != 0 }}
-    steps:
-      - name: print foo1 output
-        env:
-          foo1_OUTPUT: ${{ needs.foo1.outputs.foo1-output }}
-        run: echo "$foo1_OUTPUT"
-      - name: run TFSec  
-        uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
+    if: ${{ needs.foo1.outputs.foo1-output != 0 }}  
+    uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
     
           
