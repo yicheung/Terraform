@@ -78,7 +78,7 @@ jobs:
     env:
       TSEC_ENABLE: true
     outputs:
-      output1: ${{ steps.step2.outputs.output1 }}  
+      output1: ${{ steps.step2.outputs.test }}  
     steps:
     - id: step1
       run: |
@@ -87,14 +87,7 @@ jobs:
         echo "The run id is: $GITHUB_RUN_ID" 
         echo "The GitHub Actor's username is: $GITHUB_ACTOR"
     - id: step2                    
-      run: |
-              if ${TSEC_ENABLE} == true; then
-                echo “::set-output name=output1::true”
-                echo "flag set to true"
-              else
-                echo “::set-output name=output1::false”
-                echo "flag set to false"
-              fi             
+      run: echo “::set-output name=test::true”           
   #####
   #  Run TFsec-sarif tool if flag is true
   #####            
