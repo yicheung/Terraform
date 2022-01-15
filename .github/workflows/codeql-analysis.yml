@@ -78,7 +78,7 @@ jobs:
     env:
       TSEC_ENABLE: true
     outputs:
-      flag: ${{ steps.step2.outputs.flag }}  
+      output1: ${{ steps.step2.outputs.output1 }}  
     steps:
     - id: step1
       run: |
@@ -89,10 +89,10 @@ jobs:
     - id: step2                    
       run: |
               if ${TSEC_ENABLE} == true; then
-                echo “::set-output name=flag::true”
+                echo “::set-output name=output1::true”
                 echo "flag set to true"
               else
-                echo “::set-output name=flag::false”
+                echo “::set-output name=output1::false”
                 echo "flag set to false"
               fi             
   #####
@@ -106,7 +106,7 @@ jobs:
     steps:
     - name: Show flag
       run: |
-          echo "The flag is: ${{ needs.jobs.tfsec-flag.outputs.flag }}"
+          echo "The flag is: ${{ needs.jobs.tfsec-flag.outputs.output1 }}"
 # uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
     
           
