@@ -72,35 +72,23 @@ jobs:
   #####
   #  Check TF files with TFsec-sarif tool
   #####
-  job1:
+  foo1:
     runs-on: ubuntu-latest
-    env:
-      TSEC_ENABLE: true
+    steps:
+      - name: generate output
+        id: generate-output
+        run: echo "::set-output name=bar-output::$(echo 1)"
     outputs:
-      output1: 
-        description: The flag 
-        value: ${{ steps.step2.outputs.test }}  
-    steps:
-    - id: step1
-      run: |
-        echo "The job_id is: $GITHUB_JOB"   # reference the default environment variables
-        echo "The id of this action is: $GITHUB_ACTION"   # reference the default environment variables
-        echo "The run id is: $GITHUB_RUN_ID" 
-        echo "The GitHub Actor's username is: $GITHUB_ACTOR"
-    - id: step2                    
-      run: echo “::set-output name=test::true”           
-  #####
-  #  Run TFsec-sarif tool if flag is true
-  #####            
-  tfsec-run:
-    needs: job1
-#    if: needs.jobs.tfsec-flag.outputs.flag == 'true'
+      foo1-output: ${{ steps.generate-output.outputs.bar-output }}
+  foo2:
+    needs: foo1
     runs-on: ubuntu-latest
-    name: Run TFSec Scan
+    if: ${{ needs.foo1.outputs.foo1-output != 0 }}
     steps:
-    - name: Show flag
-      run: |
-          echo ${{needs.job1.outputs.output1}}
+      - name: print foo1 output
+        env:
+          foo1_OUTPUT: ${{ needs.foo1.outputs.foo1-output }}
+        run: echo "$foo1_OUTPUT"
 # uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
     
           
