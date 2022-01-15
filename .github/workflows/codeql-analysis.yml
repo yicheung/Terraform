@@ -96,12 +96,14 @@ jobs:
                 echo “::set-output name=flag::false”
                 echo "flag set to false"
               fi             
-    - name: verify flag
-      run: |
-        echo "flag is ${{ needs.jobs.tfsec_flag_set.steps.setup_flag.outputs.flag}}"
-    #- name: Run TFSec Scan
-     # if: steps.setup_flag.outputs.flag == 'true'
-     # uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
+  #####
+  #  Run TFsec-sarif tool if flag is true
+  #####            
+  tfsec_run:
+    needs: tfsec_flag_set
+    if: ${{ needs.jobs.tfsec_flag_set.outputs.flag == 'true' }}
+    name: Run TFSec Scan
+    uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
 
     
           
