@@ -108,7 +108,6 @@ jobs:
     - name: verify flag
       run: |
         echo "flag is ${{ needs.jobs.tfsec_flag_set.steps.setup_flag.outputs.flag}}"
-    - name: run tfsec 
-      uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
+  
     
           
