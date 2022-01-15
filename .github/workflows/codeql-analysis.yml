@@ -77,7 +77,9 @@ jobs:
     env:
       TSEC_ENABLE: true
     outputs:
-      output1: ${{ steps.step2.outputs.test }}  
+      output1: 
+        description: The flag 
+        value: ${{ steps.step2.outputs.test }}  
     steps:
     - id: step1
       run: |
