@@ -76,7 +76,7 @@ jobs:
     name: Set VAR TSEC_ENABLE
     runs-on: ubuntu-latest
     env:
-      TSEC_ENABLE: false
+      TSEC_ENABLE: true
     outputs:
       flag: ${{ steps.setup_flag.outputs.flag }}  
     steps:
