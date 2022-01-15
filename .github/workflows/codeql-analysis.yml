@@ -72,20 +72,16 @@ jobs:
   #####
   #  Check TF files with TFsec-sarif tool
   #####
-  tfsec_var_enable:
-    name: Set VAR TSEC_ENABLE
-    env:
-          TSEC_ENABLE: true
-    run: |
-            if ${TSEC_ENABLE} == true; then
-              echo "flag=true" >> $GITHUB_ENV
-              echo "flag set to true"
-            else
-              echo "flag=false" >> $GITHUB_ENV
-              echo "flag set to false"
-            fi
-  tfsec_code_check:    
-      name: "Run TFSec scan if flag is true"
-      if: env.flag
-      uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
+  tfsec:
+    runs-on: ubuntu-latest
+    steps:
+      - name: generate output
+        id: generate-output
+        run: echo "::set-output name=bar-output::true"
+    outputs:
+      tfsec-output: ${{ steps.generate-output.outputs.bar-output }}
+  tfsec-run:
+    needs: tfsec
+    if: ${{ needs.tfsec.outputs.tfsec-output == 'true' }}  
+    uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
         
