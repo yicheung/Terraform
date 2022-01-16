@@ -1,0 +1,45 @@
+# Main Code Scanner that calls other worflow scanners
+name: CodeScan
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ master ]
+  schedule:
+    - cron: '38 18 * * 1'
+
+jobs:
+  #####
+  #  Check TF files with TFsec-sarif tool
+  #####
+  step1-tfsec:
+    runs-on: ubuntu-latest
+    steps:
+      - name: generate tfsec output
+        id: generate-tfsec-output
+        run: echo "::set-output name=step1-output::true"
+    outputs:
+      tfsec-output: ${{ steps.generate-tfsec-output.outputs.step1-output }}
+  tfsec-run:
+    needs: step1-tfsec
+    if: ${{ needs.step1-tfsec.outputs.tfsec-output == 'true' }}  
+    uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
+  #####
+  #  Check CodeQL
+  #####
+  step2-codeql:
+    runs-on: ubuntu-latest
+    steps:
+      - name: generate codeql output
+        id: generate-codeql-output
+        run: echo "::set-output name=step2-output::true"
+    outputs:
+      codeql-output: ${{ steps.generate-codeql-output.outputs.step2-output }}
+  codesql-run:
+    needs: step2-codeql
+    if: ${{ needs.step2-codeql.outputs.codeql-output == 'true' }}  
+    uses: yicheung/Terraform/.github/workflows/codeql-scan.yml@master       
+    with:
+      languages: javascript
