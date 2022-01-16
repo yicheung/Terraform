@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: generate tfsec output
         id: generate-tfsec-output
-        run: echo "::set-output name=step1-output::true"
+        run: echo "::set-output name=step1-output::false"
     outputs:
       tfsec-output: ${{ steps.generate-tfsec-output.outputs.step1-output }}
   tfsec-run:
@@ -42,4 +42,4 @@ jobs:
     if: ${{ needs.step2-codeql.outputs.codeql-output == 'true' }}  
     uses: yicheung/Terraform/.github/workflows/codeql-scan.yml@master       
     with:
-      languages: javascript
+      languages: javascript, python
