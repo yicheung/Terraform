@@ -34,7 +34,7 @@ jobs:
     steps:
       - name: generate codeql output
         id: generate-codeql-output
-        run: echo "::set-output name=step2-output::true"
+        run: echo "::set-output name=step2-output::false"
     outputs:
       codeql-output: ${{ steps.generate-codeql-output.outputs.step2-output }}
   codesql-run:
