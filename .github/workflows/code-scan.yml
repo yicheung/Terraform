@@ -44,5 +44,5 @@ jobs:
     if: ${{ needs.step2-codeql.outputs.codeql-output == 'true' }}  
     uses: yicheung/Terraform/.github/workflows/codeql-scan.yml@master       
     with:
-      languages: ${{ env.LANGUAGES }}
+      languages: $LANGUAGES
 
