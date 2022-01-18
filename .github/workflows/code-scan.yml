@@ -27,7 +27,7 @@ jobs:
   tfsec-run:
     needs: step1-tfsec
     if: ${{ needs.step1-tfsec.outputs.tfsec-output == 'true' }}  
-    uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
+    uses: ./.github/workflows/tfsec-sarif.yml@v1.0
   #####
   #  Check CodeQL
   #####
@@ -40,18 +40,12 @@ jobs:
     outputs:
       codeql-output: ${{ steps.generate-codeql-output.outputs.step2-output }}
   codesql-run:
-    strategy:
-      fail-fast: true
-      matrix:
-        os: [ ubuntu-latest ]
-    runs-on: ${{ matrix.os }}    
+    name: Execute CodeSQL
+    runs-on: ubuntu-latest   
     needs: step2-codeql 
     if: ${{ needs.step2-codeql.outputs.codeql-output == 'true' }}    
     steps:
-      - name: generate codeql output
-        run: echo "${{ env.LANGS }}"
-      - name: calling codeql workflow 
-        uses: yicheung/Terraform/.github/workflows/codeql-scan.yml@master       
+      - uses: ./.github/workflows/codeql-scan.yml@master       
         with:
           languages: ${{ env.LANGS }}
 
