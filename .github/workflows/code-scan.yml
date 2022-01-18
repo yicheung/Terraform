@@ -41,11 +41,9 @@ jobs:
       codeql-output: ${{ steps.generate-codeql-output.outputs.step2-output }}
   codesql-run:
     needs: step2-codeql
-    steps:
-      - if: ${{ needs.step2-codeql.outputs.codeql-output == 'true' }}  
-        uses: yicheung/Terraform/.github/workflows/codeql-scan.yml@master       
-        with:
-          languages: ${{ env.LANGS }}
-      - name: output
-        run: echo "Languages ${{ env.LANGS }}"  
+    if: ${{ needs.step2-codeql.outputs.codeql-output == 'true' }}  
+      uses: yicheung/Terraform/.github/workflows/codeql-scan.yml@master       
+      with:
+        languages: $LANGS
+
 
