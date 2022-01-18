@@ -41,10 +41,18 @@ jobs:
       codeql-output: ${{ steps.generate-codeql-output.outputs.step2-output }}
   codesql-run:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        plan: one
     needs: step2-codeql 
     if: ${{ needs.step2-codeql.outputs.codeql-output == 'true' }}    
     steps:
       - name: generate codeql output
         run: echo "${{ env.LANGS }}"
+      - name: calling codeql workflow 
+        uses: yicheung/Terraform/.github/workflows/codeql-scan.yml@master       
+        with:
+          languages: ${{ env.LANGS }}
 
 
