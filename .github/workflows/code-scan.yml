@@ -10,7 +10,7 @@ on:
   schedule:
     - cron: '38 18 * * 1'
 env:
-  LANGUAGES: javascript, python
+  LANGS: javascript, python
 
 jobs:
   #####
@@ -44,5 +44,5 @@ jobs:
     if: ${{ needs.step2-codeql.outputs.codeql-output == 'true' }}  
     uses: yicheung/Terraform/.github/workflows/codeql-scan.yml@master       
     with:
-      languages: ${{ LANGUAGES }}
+      languages: ${{ env.LANGS }}
 
