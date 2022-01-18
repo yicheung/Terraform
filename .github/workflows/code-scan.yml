@@ -46,9 +46,5 @@ jobs:
     steps:
       - name: generate codeql output
         run: echo "${{ env.LANGS }}"
-      - name: calling codeql workflow 
-        uses: yicheung/Terraform/.github/workflows/codeql-scan.yml@master       
-        with:
-          languages: ${{ env.LANGS }}
 
 
