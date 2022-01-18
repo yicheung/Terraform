@@ -40,11 +40,11 @@ jobs:
     outputs:
       codeql-output: ${{ steps.generate-codeql-output.outputs.step2-output }}
   codesql-run:
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: true
       matrix:
-        plan: one
+        os: [ ubuntu-latest ]
+    runs-on: ${{ matrix.os }}    
     needs: step2-codeql 
     if: ${{ needs.step2-codeql.outputs.codeql-output == 'true' }}    
     steps:
