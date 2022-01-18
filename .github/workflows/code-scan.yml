@@ -27,7 +27,7 @@ jobs:
   tfsec-run:
     needs: step1-tfsec
     if: ${{ needs.step1-tfsec.outputs.tfsec-output == 'true' }}  
-    uses: ./.github/workflows/tfsec-sarif.yml@v1.0
+    uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
   #####
   #  Check CodeQL
   #####
@@ -45,7 +45,7 @@ jobs:
     needs: step2-codeql 
     if: ${{ needs.step2-codeql.outputs.codeql-output == 'true' }}    
     steps:
-      - uses: ./.github/workflows/codeql-scan.yml@master       
+      - uses: yicheung/Terraform/.github/workflows/codeql-scan.yml@master       
         with:
           languages: ${{ env.LANGS }}
 
