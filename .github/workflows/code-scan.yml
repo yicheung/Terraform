@@ -49,6 +49,9 @@ jobs:
     needs: step2-codeql 
     if: ${{ needs.step2-codeql.outputs.codeql-output == 'true' }} 
     steps:   
-      run: echo " Languages ${{ needs.step2-codeql.outputs.codeql-langs }}"
+      - name: output 
+        run: echo " Languages ${{ needs.step2-codeql.outputs.codeql-output }}"
+      - name: output languages
+        run: echo " Languages ${{ needs.step2-codeql.outputs.codeql-langs }}"  
 
 
