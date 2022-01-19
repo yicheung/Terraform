@@ -51,8 +51,7 @@ jobs:
     steps:
       - name: test uses 
         run: echo "LANGS ${{ github.env.LANGS }}"      
-        with:
-          languages: ${{ github.env.LANGS }}
+       
          
 
 
