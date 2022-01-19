@@ -50,7 +50,7 @@ jobs:
     if: ${{ needs.step2-codeql.outputs.codeql-output == 'true' }}
     steps:
       - name: test uses 
-        uses: yicheung/Terraform/.github/workflows/codeql-scan.yml@master       
+        run: echo "LANGS ${{ github.env.LANGS }}"      
         with:
           languages: ${{ github.env.LANGS }}
          
