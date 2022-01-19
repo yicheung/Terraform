@@ -39,7 +39,7 @@ jobs:
         run: echo "::set-output name=step2-output::true"
       - name: output languages
         id: generate-codeql-langs
-        run: echo "::set-output name=step2-langs::python"  
+        run: echo "::set-output name=step2-langs::${{ env.LANGS }}"  
     outputs:
       codeql-output: ${{ steps.generate-codeql-output.outputs.step2-output }}
       langs: ${{ steps.generate-codeql-langs.outputs.step2-langs }}
