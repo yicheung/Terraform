@@ -10,8 +10,8 @@ on:
   schedule:
     - cron: '38 18 * * 1'
 env:
-  RUN_TFSEC: true
-  RUN_CODEQL: false
+  RUN_TFSEC: false
+  RUN_CODEQL: true
 
 jobs:
   #####
