@@ -42,7 +42,7 @@ jobs:
         run: echo "::set-output name=step2-langs::python"  
     outputs:
       codeql-output: ${{ steps.generate-codeql-output.outputs.step2-output }}
-      codeql-langs: ${{ steps.generate-codeql-langs.outputs.step2-langs }}
+      langs: ${{ steps.generate-codeql-langs.outputs.step2-langs }}
   codesql-run:
     name: Execute CodeSQL
     runs-on: ubuntu-latest   
@@ -50,7 +50,7 @@ jobs:
     if: ${{ needs.step2-codeql.outputs.codeql-output == 'true' }} 
     uses: yicheung/Terraform/.github/workflows/codeql-scan.yml@master       
     with:
-      languages: ${{ steps.generate-codeql-langs.outputs.codeql-langs }}
+      languages: ${{ needs.step2-codeql.outputs.langs }}
          
 
 
