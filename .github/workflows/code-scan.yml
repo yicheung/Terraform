@@ -50,8 +50,9 @@ jobs:
     if: ${{ needs.step2-codeql.outputs.codeql-output == 'true' }}
     steps:
       - name: test uses 
-        run: echo "LANGS ${{ github.env.LANGS }}"      
-       
-         
+        run: echo "LANGS ${{ github.env.LANGS }}"            
+       - name: test uses 
+        run: echo "Jobs langs ${{ needs.step2-codeql.outputs.langs }}"      
+        
 
 
