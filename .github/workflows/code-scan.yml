@@ -52,7 +52,7 @@ jobs:
       - name: test uses 
         run: echo "LANGS ${{ env.LANGS }}"            
       - name: test uses 
-        run: echo "Jobs langs ${{ steps.step2-codeql.outputs.langs }}"      
+        run: echo "Jobs langs ${{ needs.step2-codeql.outputs.langs }}"      
         
 
 
