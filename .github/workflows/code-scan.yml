@@ -39,7 +39,7 @@ jobs:
         run: echo "::set-output name=step2-output::true"
       - name: output languages
         id: generate-codeql-langs
-        run: echo "::set-output name=step2-langs::${{ env.LANGS }}"  
+        run: echo "::set-output name=step2-langs::$LANGS"  
     outputs:
       codeql-output: ${{ steps.generate-codeql-output.outputs.step2-output }}
       codeql-langs: ${{ steps.generate-codeql-langs.outputs.step2-langs }}
@@ -50,6 +50,6 @@ jobs:
     if: ${{ needs.step2-codeql.outputs.codeql-output == 'true' }}    
     uses: yicheung/Terraform/.github/workflows/codeql-scan.yml@master       
     with:
-      languages: ${{ jobs.step2-codeql.outputs.codeql-langs }}
+      languages: ${{ needs.step2-codeql.outputs.codeql-langs }}
 
 
