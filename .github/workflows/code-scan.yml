@@ -22,12 +22,12 @@ jobs:
     steps:
       - name: generate tfsec output
         id: generate-tfsec-output
-        run: echo "::set-output name=step1-output::${{ RUN_TFSEC }}"
+        run: echo "::set-output name=step1-output::${{ env.RUN_TFSEC }}"
     outputs:
       tfsec-output: ${{ steps.generate-tfsec-output.outputs.step1-output }}
   tfsec-run:
     needs: step1-tfsec
-    if: ${{ env.RUN_TFSEC == 'true' }}  
+    if: ${{ RUN_TFSEC == 'true' }}  
     uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
   #####
   #  Check CodeQL
@@ -37,12 +37,12 @@ jobs:
     steps:
       - name: generate codeql output
         id: generate-codeql-output
-        run: echo "::set-output name=step2-output::${{ RUN_CODEQL }}"
+        run: echo "::set-output name=step2-output::${{ env.RUN_CODEQL }}"
     outputs:
       codeql-output: ${{ steps.generate-codeql-output.outputs.step2-output }}
   codesql-run:
     needs: step2-codeql
-    if: ${{ env.RUN_CODEQL == 'true' }}  
+    if: ${{ RUN_CODEQL == 'true' }}  
     uses: yicheung/Terraform/.github/workflows/codeql-scan.yml@master       
     with:
       languages: javascript, python
