@@ -48,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest   
     needs: step2-codeql 
     if: ${{ needs.step2-codeql.outputs.codeql-output == 'true' }}     
-    uses: yicheung/Terraform/.github/workflows/codeql-scan.yml@main  
+    uses: yicheung/Terraform/.github/workflows/codeql-scan.yml@master 
     with:
       languages: ${{ needs.step2-codeql.outputs.langs }}
 
