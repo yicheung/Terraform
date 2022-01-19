@@ -10,8 +10,8 @@ on:
   schedule:
     - cron: '38 18 * * 1'
 env:
-  RUN_TFSEC: false
-  RUN_CODEQL: true
+  RUN_TFSEC: true
+  RUN_CODEQL: false
 
 jobs:
   #####
@@ -27,7 +27,7 @@ jobs:
       tfsec-output: ${{ steps.generate-tfsec-output.outputs.step1-output }}
   tfsec-run:
     needs: step1-tfsec
-    if: ${{ needs.step1-tfsec.outputs.tfsec-output == 'true' }}  
+    if: ${{ env.RUN_TFSEC == 'true' }}  
     uses: yicheung/Terraform/.github/workflows/tfsec-sarif.yml@v1.0
   #####
   #  Check CodeQL
@@ -42,7 +42,7 @@ jobs:
       codeql-output: ${{ steps.generate-codeql-output.outputs.step2-output }}
   codesql-run:
     needs: step2-codeql
-    if: ${{ needs.step2-codeql.outputs.codeql-output == 'true' }}  
+    if: ${{ env.RUN_CODEQL == 'true' }}  
     uses: yicheung/Terraform/.github/workflows/codeql-scan.yml@master       
     with:
       languages: javascript, python
